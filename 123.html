@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 第一步先封装一个ajax请求函数
+        // 首先先创建一个对象
+        // 然后初始化参数 
+        // 然后请求方式及传参 // toUpperCase转为大写方法
+        // 接下来设置参数类型
+        // 然后定义一个参数
+        // 第二步请求接口
+        // 首先判断请求接口的方式
+        // 接受请求
+        // 通过监听事件 onreadystatechange 监听 redayState里面的状态值
+        
+        // 第三步做参数处理
+        
+        // 最后调用测试
+        // 请求接口类型，请求接口参数类型，接口传参
+        function ajax(a){
+            const xhr = new XMLHttpRequest()
+            a = a ||{}
+            a.type = (a.type || 'GET').toUpperCase()
+            const params = a.data
+            if(a.type==='GET'){
+                xhr.open('GET',a.url +'?' + getParams(params),true)
+                xhr.send(null)
+            } else if(a.type==='POST'){
+                xhr.open('POST',a.url,true)
+                xhr.send(null)
+            }
+            xhr.onreadystatechange = function(){
+                if(redayState===4){
+                    if(xhr.status >=200 && xhr.status <300){
+                        a.aaa(xhr.responseText,xhr.responseXML)
+                    } else {
+                        a.bbb(status)
+                    }
+                }
+            }
+        }
+        function getParams(data){
+            let arr = []
+            for(let key in data){
+                arr.push(`${{key}}=${data[key]}`)
+            }
+            return arr.json('&')
+        }
+        ajax({
+            type:'GET',
+            dataType:'json',
+            data:{
+                user_id:1
+            },
+            url:'a.url',
+            aaa:function(text,xml){
+                console.log(text,xml);
+                console.log(JSON.parse(text,xml));
+            },
+            bbb:function(status){
+                console.log(statys);
+            }
+        })
+        
+    </script>
+</body>
+
+</html>
